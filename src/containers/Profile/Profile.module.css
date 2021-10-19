@@ -1,0 +1,26 @@
+.profileSection {
+    padding-top: 100px;
+}
+
+.controlPanelWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.controlPanelWrapper h1 {
+    font-weight: 300;
+}
+
+.controlButtons {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 25px 0 25px 0;
+}
+
+.portfolioUpdateSection {
+    padding: 25px 0 25px 0;
+}
+
+.portfolioUpdateSection h1 {
+    font-weight: 300;
+}

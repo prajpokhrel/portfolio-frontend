@@ -1,0 +1,139 @@
+.switch-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px 10px 0;
+}
+
+.intro-contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100vh;
+}
+
+.introTag {
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 60px;
+}
+
+.introTag strong {
+    font-weight: 400;
+}
+
+.introHello {
+    font-weight: 300;
+}
+
+.introContact {
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.introEmail {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.introEmail:hover {
+    color: #1976D2;
+    cursor: pointer;
+}
+
+.about-me-contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 100px 0 100px 0;
+}
+
+.about-header h1{
+    font-weight: 300;
+}
+
+.about-description {
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 300;
+}
+
+.skills-content {
+    padding: 100px 0 0 0;
+}
+
+.skills {
+    padding: 0 0 100px 0;
+}
+
+.skills h2, ul {
+    font-weight: 300;
+}
+
+.skills ul {
+    font-size: 20px;
+}
+
+.skills-header h1 {
+    font-weight: 300;
+    text-align: center;
+}
+
+.portfolio__content {
+    height: auto;
+    padding-left: 0;
+    padding-top: 100px;
+    font-weight: 300;
+}
+
+.portfolio__description {
+    /*color: #8892B0;*/
+    text-align: center;
+}
+
+@media (max-width: 576px) {
+    .portfolio__content {
+        padding-left: 15px !important;
+    }
+}
+
+.portfolio__header {
+    padding-top: 0;
+    position: relative;
+    font-weight: 300;
+    text-align: center;
+}
+
+.contact-contents {
+    display: flex;
+    flex-direction: column;
+    padding: 100px 0 100px 0;
+    justify-content: center;
+    align-items: center;
+}
+
+h4 {
+    font-weight: 300;
+}
+
+.contact-description {
+    text-align: center;
+    margin: 20px 0 30px 0;
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.copyright {
+    padding: 50px 0 50px 0;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.work-contents {
+    font-weight: 300;
+    padding: 100px 0 100px 0;
+}
+
+.work-heading {
+    font-weight: 300;
+}

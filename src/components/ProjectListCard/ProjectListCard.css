@@ -1,0 +1,94 @@
+.listcard__container {
+    box-sizing: border-box;
+    /*background: red;*/
+    padding: 10px;
+    /*background-color: red;*/
+}
+
+.listcard__main {
+    background: #212529;
+    border: none;
+}
+
+.listcard__contents {
+    background: #172A45;
+    border-radius: 5px;
+    padding: 30px;
+    box-sizing: border-box;
+    font-weight: 300;
+    line-height: 30px;
+    font-size: 16px;
+    transition: all 0.3s ease-out;
+}
+
+.listcard__contents:hover {
+    -webkit-transform: translateY(-15px);
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    -o-transform: translateY(-15px);
+    transform: translateY(-15px);
+    transition: all 0.3s ease-out;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.listcard__header {
+    display: flex;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    vertical-align: center;
+    align-content: flex-end;
+    justify-content: flex-end;
+    /*background: red;*/
+
+}
+
+.listcard__title{
+    color: #CCD6F6;
+    padding: 10px 0;
+    box-sizing: border-box;
+    font-weight: 300;
+}
+
+h4 {
+    font-weight: 300;
+}
+
+.listcard__description {
+    color: #A8B2D1;
+}
+
+.listcard__tech {
+    color: #8892B0;
+}
+
+.listcard__demoBtn {
+    padding: 7px 15px;
+    border-radius: 5px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    border: 1px solid #64FFDA;
+    background: transparent;
+    color: #64FFDA;
+    outline: none;
+}
+
+.listcard__demoBtn:hover {
+    background: rgba(100, 255, 218, 0.1);
+    outline: none;
+}
+
+.listproject__github i {
+    font-size: 25px;
+    color: #A8B2D1;
+    justify-content: center;
+    align-self: center;
+    margin-top: 8px;
+}
+
+.listproject__github i:hover {
+    color: #64FFDA;
+}
+
+.listproject__github {
+    margin-right: 10px !important;
+}
