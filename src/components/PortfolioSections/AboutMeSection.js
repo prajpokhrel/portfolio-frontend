@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from "react";
 import "../../containers/Portfolio/Portfolio.css";
 import axios from "../../axios-portfolio";
+import {useParams} from "react-router-dom";
 
 const AboutMeSection = () => {
 
     const [background, setBackground] = useState({});
+    const { portfolioId } = useParams();
 
     useEffect(() => {
         const getBackground = async () => {
             try {
-                const response = await axios.get('/backgroundInfo',
+                const response = await axios.get(`/personalInfo/${portfolioId}`,
                     {withCredentials: true, credentials: 'include'});
-                setBackground(prevState => response.data);
+                setBackground(prevState => response.data[0]);
                 console.log("Background info", response.data);
             } catch (error) {
                 console.log(error.response);
@@ -48,8 +50,10 @@ const AboutMeSection = () => {
                             </p>
                         </div>
                     </div>
-                    <div className="col-sm-5">
-                        <h1>Add a profile picture</h1>
+                    <div className="col-sm-5 profile-picture-wrapper">
+                        <div className="col-sm-8 profile-picture-container">
+                            <img className="profile-image rounded img-fluid" src={`http://localhost:5000/${background.profileImage}`} alt="profile image"/>
+                        </div>
                     </div>
                 </div>
             </div>

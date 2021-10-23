@@ -2,19 +2,22 @@
     padding-top: 100px;
 }
 
-.controlPanelWrapper {
+.myPortfoliosWrapper {
     display: flex;
     flex-direction: column;
 }
 
-.controlPanelWrapper h1 {
+.myPortfoliosWrapper h1 {
     font-weight: 300;
 }
 
-.controlButtons {
-    display: flex;
-    justify-content: space-evenly;
+.portfoliosContainer {
     padding: 25px 0 25px 0;
+}
+
+.singlePortfolio {
+    background-color: #172A45;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
 }
 
 .portfolioUpdateSection {
@@ -23,4 +26,10 @@
 
 .portfolioUpdateSection h1 {
     font-weight: 300;
+}
+
+.controlButtons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }

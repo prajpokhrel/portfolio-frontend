@@ -1,9 +1,34 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import classes from "./Navigation.module.css";
+import Button from "@mui/material/Button";
+import axios from "../../axios-portfolio";
+import {Redirect, useHistory} from "react-router-dom";
 
 const Navigation = (props) => {
-    return (
+    const [loggedOut, setLoggedOut] = useState(false);
+    const history = useHistory();
 
+    const logoutHandler = () => {
+        axios.get('/users/logout', {withCredentials: true, credentials: "include"})
+            .then((response) => {
+                console.log(response.data);
+                setLoggedOut(true);
+
+                // can also do
+                // history.push('/auth/login');
+            })
+            .catch((error) => {
+                console.log(error.response);
+            });
+    }
+
+    const nameClickHandler = () => {
+        history.push('/profile');
+    }
+
+    return (
+        <>
+        {loggedOut && <Redirect to={"/auth/login"} />}
         <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-dark">
             <div className="container-fluid">
                 <a className="navbar-brand lead text-light" href="#">{props.headingTitle}</a>
@@ -17,18 +42,18 @@ const Navigation = (props) => {
                         <li className="nav-item">
                             {
                                 props.createPortfolioButton &&
-                                <button type="button" className="btn btn-primary btn-lg">Create Portfolio</button>
+                                <Button variant="contained" size="large" onClick={props.createPortfolioModal}>Create Portfolio</Button>
                             }
                         </li>
                     </ul>
-                    <span className={`navbar-text lead text-light ${classes.welcomeText}`}>
-                            Welcome, @prajwal!
+                    <span onClick={nameClickHandler} className={`navbar-text lead text-light ${classes.welcomeText}`}>
+                            Welcome, @{props.loggedUserName}!
                         </span>
-                    <button type="button" className="btn btn-outline-primary">Logout</button>
+                    <Button onClick={logoutHandler} variant="outlined" color="error">Logout</Button>
                 </div>
             </div>
         </nav>
-
+        </>
     );
 };
 

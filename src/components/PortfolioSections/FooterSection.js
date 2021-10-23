@@ -3,7 +3,7 @@ import "../../containers/Portfolio/Portfolio.css";
 
 const FooterSection = () => {
     return (
-        <section className="footer">
+        <section className="footer bg-dark text-light">
             <div className="container">
                 <div className="row">
                     <div className="col-sm-12 copyright">

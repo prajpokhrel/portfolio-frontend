@@ -4,6 +4,16 @@
     padding: 10px 20px 10px 0;
 }
 
+.icons-container {
+    padding: 2px 10px 2px 10px;
+    font-size: 18px;
+}
+
+.icons-container i:hover {
+    color: #64FFDA;
+    cursor: pointer;
+}
+
 .intro-contents {
     display: flex;
     flex-direction: column;
@@ -19,8 +29,13 @@
 
 .introTag strong {
     font-weight: 400;
+    color: #64FFDA;
 }
 
+.introTag strong:hover {
+    cursor: pointer;
+}
+ 
 .introHello {
     font-weight: 300;
 }
@@ -36,7 +51,7 @@
 }
 
 .introEmail:hover {
-    color: #1976D2;
+    color: #64FFDA;
     cursor: pointer;
 }
 
@@ -62,7 +77,7 @@
 }
 
 .skills {
-    padding: 0 0 100px 0;
+    padding: 50px 0 100px 0;
 }
 
 .skills h2, ul {
@@ -137,3 +152,23 @@ h4 {
 .work-heading {
     font-weight: 300;
 }
+
+.profile-picture-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-picture-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+}
+
+.profile-image {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+

@@ -3,3 +3,14 @@
     height: auto;
     padding: 100px 0 50px 0;
 }
+
+.success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    font-weight: 300;
+}

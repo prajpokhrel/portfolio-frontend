@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import classes from "./Login.module.css";
 import axios from "../../../axios-portfolio";
 import {useHistory} from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const Login = () => {
 
@@ -19,9 +21,12 @@ const Login = () => {
             const response = await axios.post('/auth', formData,
                 {withCredentials: true, credentials: 'include'});
 
-            console.log(response.data);
+            if (response) {
+                history.push('/profile');
+            }
         } catch (error) {
             console.log(error.response.data);
+            console.log("Sorry buddy...");
         }
     };
 
@@ -35,16 +40,27 @@ const Login = () => {
             <div className={classes.formContainer}>
 
                 <form onSubmit={loginHandler}>
-                    <div className="mb-3">
-                        <label htmlFor="email" className="form-label">Email address</label>
-                        <input type="email" name="email" onChange={inputChangedHandler} className="form-control" id="email"
-                               aria-describedby="emailHelp" />
+                    <div className="mb-3 mt-3">
+                        <TextField fullWidth
+                                   required
+                                   name="email"
+                                   onChange={inputChangedHandler}
+                                   label="E-Mail"
+                                   type="email"
+                                   placeholder = "Enter your email..."
+                                   variant="standard" />
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">Password</label>
-                        <input type="password" name="password" onChange={inputChangedHandler} className="form-control" id="password" />
+                    <div className="mb-3 mt-3">
+                        <TextField fullWidth
+                                   required
+                                   name="password"
+                                   onChange={inputChangedHandler}
+                                   label="Password"
+                                   type="password"
+                                   placeholder = "Enter your password..."
+                                   variant="standard" />
                     </div>
-                    <button className="btn btn-primary">Submit</button>
+                    <Button fullWidth variant="contained" type="submit">Submit</Button>
                 </form>
 
             </div>

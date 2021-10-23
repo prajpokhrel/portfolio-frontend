@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
 import "../../containers/Portfolio/Portfolio.css";
 import axios from "../../axios-portfolio";
+import {useHistory} from "react-router-dom";
 
 const IntroductionSection = () => {
 
     const [personal, setPersonal] = useState({});
+    const history = useHistory();
 
     useEffect(() => {
         const getPersonal = async () => {
@@ -21,6 +23,10 @@ const IntroductionSection = () => {
         getPersonal();
     }, []);
 
+    const handleNameClick = () => {
+        history.push('/profile');
+    }
+
     return (
         <section className="intro-wrapper">
             <div className='container'>
@@ -31,12 +37,12 @@ const IntroductionSection = () => {
                         </div>
                         <div className="introTagLine">
                             <h2 className="introTag">
-                                I'm <strong>{personal.firstName} {personal.lastName}</strong>, a design-minded front-end software engineer
+                                I'm <strong onClick={handleNameClick}>Prajwal Pokhrel</strong>, a design-minded front-end software engineer
                                 focused on building beautiful interfaces & experiences.
                             </h2>
                         </div>
                         <div>
-                            <h3 className="introContact">Get in touch 👉 <span className="introEmail">{personal.email}</span></h3>
+                            <h3 className="introContact">Get in touch 👉 <span className="introEmail">prajwal@gmail.com</span></h3>
                         </div>
                     </div>
                     <div className="col-sm-5">

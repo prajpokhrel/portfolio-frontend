@@ -1,3 +1,18 @@
 input[type="date"] {
     width: 100%;
 }
+
+.controlButtons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.singleData {
+    background-color: #172A45;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
+}
+
+h3, h5, h6 {
+    font-weight: 300;
+}
