@@ -28,7 +28,7 @@ const Navigation = (props) => {
 
     return (
         <>
-        {loggedOut && <Redirect to={"/auth/login"} />}
+        {loggedOut && <Redirect to={"/"} />}
         <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-dark">
             <div className="container-fluid">
                 <a className="navbar-brand lead text-light" href="#">{props.headingTitle}</a>
