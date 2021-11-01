@@ -27,7 +27,7 @@ const AboutMeSection = ({ aboutMeDetails, introDetails }) => {
                         <div className="col-sm-8 profile-picture-container">
                             {
                                 introDetails[0].profileImage !== ''
-                                    ? <img className="profile-image rounded img-fluid" src={`http://localhost:5000/${introDetails[0].profileImage}`} alt="profile image portfolio"/>
+                                    ? <img className="profile-image rounded img-fluid" src={`https://gory-grave-47999.herokuapp.com/${introDetails[0].profileImage}`} alt="profile image portfolio"/>
                                     : <h3 className="text-center text-warning">Don't be shy to add your profile picture.</h3>
                             }
                         </div>

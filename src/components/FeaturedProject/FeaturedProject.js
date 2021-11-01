@@ -51,7 +51,7 @@ const FeaturedProject = ({featured}) => {
                                     <div className="card__wrapper">
                                         <div className="overlay"></div>
                                         <img className="card__image img-fluid"
-                                             src={`http://localhost:5000/${featuredProjects.projectImage}`}
+                                             src={`https://gory-grave-47999.herokuapp.com/${featuredProjects.projectImage}`}
                                              alt="project image portfolio"/>
                                     </div>
                                 </div>

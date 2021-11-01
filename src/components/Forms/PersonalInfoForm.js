@@ -66,7 +66,7 @@ const PersonalInfoForm = (props) => {
                                 <>
                                     <div className="col-sm-2">
                                         <img className="rounded img-fluid"
-                                             src={`http://localhost:5000/${props.userData.profileImage}`}
+                                             src={`https://gory-grave-47999.herokuapp.com/${props.userData.profileImage}`}
                                              alt="Personal Profile Picture" />
                                     </div>
                                 </>
