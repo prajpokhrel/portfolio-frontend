@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from "react";
 import "./CreatePortfolio.css";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import axios from "../../axios-portfolio";
 import { useParams } from "react-router-dom";
 import SkillsForm from "../Forms/SkillsForm";
-import PersonalInfoForm from "../Forms/PersonalInfoForm";
+import CommonModal from "../Modal/CommonModal";
 
 const Skills = () => {
     const [skills, setSkills] = useState({
@@ -18,6 +16,10 @@ const Skills = () => {
 
     const [renderState, setRenderState] = useState(true);
     const [toggleAddUpdate, setToggleAddUpdate] = useState(true);
+
+    const [showModal, setShowModal] = useState(false);
+    const [errorLog, setErrorLog] = useState('');
+
     const { portfolioId } = useParams();
 
     useEffect(() => {
@@ -41,12 +43,15 @@ const Skills = () => {
     }, [renderState]);
 
     const inputChangeHandler = (event) => {
-        const re = /\s*(?:;|$)\s*/;
-        setSkills({...skills, [event.target.name]: event.target.value.split(re)});
+        // const re = /\s*(?:;|$)\s*/;
+        setSkills({...skills, [event.target.name]: event.target.value.split(';')});
     };
+
+    const handleModalToggle = () => setShowModal(!showModal);
 
     const formSubmitHandler = async (event) => {
         event.preventDefault();
+        console.log(skills);
 
         try {
             const response = await axios.post(`/skills/${portfolioId}`, skills,
@@ -55,6 +60,22 @@ const Skills = () => {
             setRenderState(!renderState);
         } catch (error) {
             console.log(error.response.data);
+            setErrorLog(error.response.data);
+            setShowModal(!showModal);
+        }
+    };
+
+    const formUpdateHandler = async (id) => {
+        console.log(skills);
+        try {
+            const response = await axios.patch(`/skills/${id}`, skills,
+                {withCredentials: true, credentials: 'include'});
+            console.log(response.data);
+            setRenderState(!renderState);
+        } catch (error) {
+            console.log(error.response.data);
+            setErrorLog(error.response.data);
+            setShowModal(!showModal);
         }
     };
 
@@ -71,6 +92,12 @@ const Skills = () => {
 
     return (
         <div>
+            <CommonModal errorTitle={true}
+                         modalName="Oops! Something went wrong."
+                         createPortfolioModal={handleModalToggle}
+                         show={showModal}>
+                {errorLog}
+            </CommonModal>
             <div className="row mt-3">
                 <div className="col-sm-10 m-auto">
                     <div className="row">
@@ -78,137 +105,13 @@ const Skills = () => {
 
                             <SkillsForm formSubmit={formSubmitHandler}
                                         inputChange={inputChangeHandler}
+                                        formUpdate={formUpdateHandler}
                                         userData={skills}
                                         toggleButton={toggleAddUpdate}
                             />
-                            {/*{*/}
-                            {/*    updateData.length === 0*/}
-                            {/*        ?*/}
-                            {/*        <>*/}
-                            {/*            <p className="lead text-warning">You haven't filled your personal information yet.</p>*/}
-                            {/*            <form onSubmit={formSubmitHandler}>*/}
-                            {/*                <div className="row">*/}
-                            {/*                    <div className="col-sm-12">*/}
-                            {/*                        <span className="lead">Please separate your skills with <strong>"|"</strong>.</span><br/>*/}
-                            {/*                        <TextField fullWidth*/}
-                            {/*                                   required*/}
-                            {/*                                   onChange={inputChangeHandler}*/}
-                            {/*                                   multiline*/}
-                            {/*                                   name="languages"*/}
-                            {/*                                   minRows={2}*/}
-                            {/*                                   maxRows={4}*/}
-                            {/*                                   label="Programming Languages"*/}
-                            {/*                                   placeholder = "Java | Python | ..."*/}
-                            {/*                                   variant="standard" /><br/><br/>*/}
-                            {/*                        <TextField fullWidth*/}
-                            {/*                                   required*/}
-                            {/*                                   onChange={inputChangeHandler}*/}
-                            {/*                                   multiline*/}
-                            {/*                                   name="frameworks"*/}
-                            {/*                                   minRows={2}*/}
-                            {/*                                   maxRows={4}*/}
-                            {/*                                   label="Frameworks"*/}
-                            {/*                                   placeholder = "Angular | Express JS ..."*/}
-                            {/*                                   variant="standard" /><br/><br/>*/}
-                            {/*                        <TextField fullWidth*/}
-                            {/*                                   required*/}
-                            {/*                                   onChange={inputChangeHandler}*/}
-                            {/*                                   multiline*/}
-                            {/*                                   name="tools"*/}
-                            {/*                                   minRows={2}*/}
-                            {/*                                   maxRows={4}*/}
-                            {/*                                   label="Tools"*/}
-                            {/*                                   placeholder = "MongoDB | Postman | ..."*/}
-                            {/*                                   variant="standard" /><br/><br/>*/}
-                            {/*                        <TextField fullWidth*/}
-                            {/*                                   required*/}
-                            {/*                                   onChange={inputChangeHandler}*/}
-                            {/*                                   multiline*/}
-                            {/*                                   name="design"*/}
-                            {/*                                   minRows={2}*/}
-                            {/*                                   maxRows={4}*/}
-                            {/*                                   label="Design"*/}
-                            {/*                                   placeholder = "Figma | Sketch | ..."*/}
-                            {/*                                   variant="standard" /><br/><br/>*/}
 
-
-                            {/*                        <Button type="submit" variant="contained">save</Button>*/}
-                            {/*                    </div>*/}
-                            {/*                </div>*/}
-                            {/*            </form>*/}
-                            {/*        </>*/}
-                            {/*        : updateData.map((data, index) => {*/}
-                            {/*            return (*/}
-                            {/*                <div className="row mb-3 singleData" key={data._id}>*/}
-                            {/*                    <div className="col-sm-8 pt-2 pb-2 text-light">*/}
-                            {/*                        <h3 className="text-info">Skills {index+1}</h3>*/}
-                            {/*                        <h4><b>Programming Languages:</b> <span>{data.Languages}</span></h4>*/}
-                            {/*                        <h4><b>Frameworks: </b> <span>{data.Frameworks}</span></h4>*/}
-                            {/*                        <h4><b>Tools: </b> <span>{data.Tools}</span></h4>*/}
-                            {/*                        <h4><b>Design: </b> <span>{data.Design}</span></h4>*/}
-                            {/*                    </div>*/}
-                            {/*                    <div className="col-sm-4 pt-2 pb-2 text-light controlButtons">*/}
-                            {/*                        <Button onClick={dataDeleteHandler} variant="contained" color="error">Delete</Button>*/}
-                            {/*                        /!*<ButtonGroup variant="contained">*!/*/}
-                            {/*                        /!*    <Button color="error">Delete</Button>*!/*/}
-                            {/*                        /!*</ButtonGroup>*!/*/}
-                            {/*                    </div>*/}
-                            {/*                </div>*/}
-                            {/*            );*/}
-                            {/*        })*/}
-                            {/*}*/}
                         </div>
                     </div>
-                    {/*<form onSubmit={formSubmitHandler}>*/}
-                    {/*    <div className="row">*/}
-                    {/*        <div className="col-sm-12">*/}
-                    {/*            <span className="lead">Please separate your skills with <strong>"|"</strong>.</span><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       multiline*/}
-                    {/*                       name="languages"*/}
-                    {/*                       minRows={2}*/}
-                    {/*                       maxRows={4}*/}
-                    {/*                       label="Programming Languages"*/}
-                    {/*                       placeholder = "Java | Python | ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       multiline*/}
-                    {/*                       name="frameworks"*/}
-                    {/*                       minRows={2}*/}
-                    {/*                       maxRows={4}*/}
-                    {/*                       label="Frameworks"*/}
-                    {/*                       placeholder = "Angular | Express JS ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       multiline*/}
-                    {/*                       name="tools"*/}
-                    {/*                       minRows={2}*/}
-                    {/*                       maxRows={4}*/}
-                    {/*                       label="Tools"*/}
-                    {/*                       placeholder = "MongoDB | Postman | ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       multiline*/}
-                    {/*                       name="design"*/}
-                    {/*                       minRows={2}*/}
-                    {/*                       maxRows={4}*/}
-                    {/*                       label="Design"*/}
-                    {/*                       placeholder = "Figma | Sketch | ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-
-
-                    {/*            <Button type="submit" variant="contained">save</Button>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</form>*/}
                 </div>
             </div>
         </div>

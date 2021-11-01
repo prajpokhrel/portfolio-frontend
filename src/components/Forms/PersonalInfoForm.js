@@ -62,19 +62,20 @@ const PersonalInfoForm = (props) => {
                                    type="file"
                                    variant="standard" /><br/><br/>
                         {
-                            props.userData.profileImage !== "" ?
+                            props.imagePreview && typeof props.userData.profileImage === 'string' &&
                                 <>
                                     <div className="col-sm-2">
-                                        <img className="rounded img-fluid" src={`http://localhost:5000/${props.userData.profileImage}`} alt="profile image"/>
+                                        <img className="rounded img-fluid"
+                                             src={`http://localhost:5000/${props.userData.profileImage}`}
+                                             alt="Personal Profile Picture" />
                                     </div>
-                                </> : null
+                                </>
                         }
                         {
                             props.toggleButton
                                 ? <Button className="mt-3" type="submit" variant="contained">save</Button>
-                                : <Button className="mt-3" type="submit" variant="contained">Update</Button>
+                                : <Button className="mt-3" onClick={() => props.formUpdate(props.userData._id)} variant="contained">Update</Button>
                         }
-                        {/*<Button disabled={updateData.length !== 0} type="submit" variant="contained">save</Button>*/}
                     </div>
                 </div>
             </form>

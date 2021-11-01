@@ -18,12 +18,21 @@ const Profile = (props) => {
         portfolioName: "",
         portfolioDescription: ""
     });
+
+    const [formError, setFormError] = useState({
+        portfolioName: "",
+        portfolioDescription: ""
+    });
+
     const [portfolios, setPortfolios] = useState([]);
     const [renderState, setRenderState] = useState(true);
     const [auth, setAuth] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const history = useHistory();
 
+    const initialState = {
+        portfolioName: "", portfolioDescription: ""
+    }
 
     useEffect(() => {
         const loggedInUser = () => {
@@ -56,7 +65,11 @@ const Profile = (props) => {
         getPortfolios();
     }, [renderState]);
 
-    const handleModalToggle = () => setShowModal(!showModal);
+    const handleModalToggle = () => {
+        setShowModal(!showModal);
+        setFormData({portfolioName: "", portfolioDescription: ""});
+        setFormError({portfolioName: "", portfolioDescription: ""});
+    };
 
     const inputChangedHandler = (event) => {
         setFormData({...formData, [event.target.name]: event.target.value});
@@ -85,10 +98,11 @@ const Profile = (props) => {
 
         } catch (error) {
             console.log(error.response.data);
+            setFormError({...initialState, [error.response.data.context.key]: error.response.data.message });
         }
 
         console.log(formData);
-        setFormData({portfolioName: "", portfolioDescription: ""});
+
     };
 
     const updatePortfolioHandler = (portfolioId) => {
@@ -108,6 +122,8 @@ const Profile = (props) => {
                         <div className="container-fluid">
                             <div className="row">
                                 <CommonModal
+                                    errorTitle={false}
+                                    modalName="Create Portfolio"
                                     createPortfolioModal={handleModalToggle}
                                     show={showModal}>
 
@@ -116,6 +132,8 @@ const Profile = (props) => {
                                         <div className="mb-3 mt-3">
                                             <TextField fullWidth
                                                        required
+                                                       error={formError.portfolioName !== ''}
+                                                       helperText={formError.portfolioName}
                                                        name="portfolioName"
                                                        value={formData.portfolioName}
                                                        onChange={inputChangedHandler}
@@ -126,6 +144,8 @@ const Profile = (props) => {
                                         <div className="mb-3 mt-3">
                                             <TextField fullWidth
                                                        required
+                                                       error={formError.portfolioDescription !== ''}
+                                                       helperText={formError.portfolioDescription}
                                                        multiline
                                                        minRows={3}
                                                        maxRows={5}
@@ -198,7 +218,7 @@ const Profile = (props) => {
                     (
                         <Redirect to="/auth/login" />
                     )
-                    : auth === null ? <Loader /> : null
+                    : auth === null ? <Loader message="Gathering information... Please wait for a while..." redirectButton={false}/> : null
             }
         </div>
     );

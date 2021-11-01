@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from "react";
 import "./CreatePortfolio.css";
-import TextField from "@mui/material/TextField";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import "./CreatePortfolio.css";
 import axios from "../../axios-portfolio";
 import { useParams } from "react-router-dom";
 import ExperienceForm from "../Forms/ExperienceForm";
+import CommonModal from "../Modal/CommonModal";
 
 const Experience = () => {
 
@@ -21,6 +20,10 @@ const Experience = () => {
 
     const [updateData, setUpdateData] = useState([]);
     const [renderState, setRenderState] = useState(true);
+
+    const [showModal, setShowModal] = useState(false);
+    const [errorLog, setErrorLog] = useState('');
+
     const { portfolioId } = useParams();
 
     useEffect(() => {
@@ -29,7 +32,7 @@ const Experience = () => {
                 {withCredentials: true, credentials: "include"})
                 .then((response) => {
                     setUpdateData(response.data);
-                    console.log(response.data);
+                    // console.log(response.data);
                 }).catch((error) => {
                 console.log(error.response);
             });
@@ -48,16 +51,20 @@ const Experience = () => {
         }
     };
 
+    const handleModalToggle = () => setShowModal(!showModal);
+
     const formSubmitHandler = async (event) => {
         event.preventDefault();
 
         try {
             const response = await axios.post(`/experience/${portfolioId}`, experience,
                 {withCredentials: true, credentials: 'include'});
-            console.log(response.data);
+            // console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
-            console.log(error.response.data);
+            // console.log(error.response.data);
+            setErrorLog(error.response.data);
+            setShowModal(!showModal);
         }
     };
 
@@ -65,7 +72,7 @@ const Experience = () => {
         try {
             const response = await axios.delete(`/experience/${id}`,
                 {withCredentials: true, credentials: "include"});
-            console.log(response.data);
+            // console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
             console.log("ERROR", error.response);
@@ -74,6 +81,12 @@ const Experience = () => {
 
     return (
         <div>
+            <CommonModal errorTitle={true}
+                         modalName="Oops! Something went wrong."
+                         createPortfolioModal={handleModalToggle}
+                         show={showModal}>
+                {errorLog}
+            </CommonModal>
             <div className="row mt-3">
                 <div className="col-sm-10 m-auto">
                     <div className="row">
@@ -100,126 +113,8 @@ const Experience = () => {
                                             inputChange={inputChangeHandler}
                                             userData={experience}
                             />
-                            {/*<>*/}
-                            {/*    {*/}
-                            {/*        props.userData.firstName === ""*/}
-                            {/*            ? <p className="lead text-info"><b>Please fill your personal information.</b></p>*/}
-                            {/*            : <p className="lead text-info"><b>Please update your personal information.</b></p>*/}
-                            {/*    }*/}
-                            {/*    <form onSubmit={formSubmitHandler}>*/}
-                            {/*        <div className="row">*/}
-                            {/*            <span className="lead">*/}
-                            {/*                <span className="text-danger"><b>*Important:</b></span> Please separate your Job Description with "<b>;</b>".*/}
-                            {/*            </span><br/>*/}
-                            {/*            <div className="col-sm-6">*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           label="Job Title"*/}
-                            {/*                           name="jobTitle"*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           placeholder = "Enter your job title..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           name="employer"*/}
-                            {/*                           label="Employer"*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           placeholder = "Enter your employer..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           name="jobDescription"*/}
-                            {/*                           multiline*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           minRows={2}*/}
-                            {/*                           maxRows={5}*/}
-                            {/*                           label="Job Description"*/}
-                            {/*                           placeholder = "Please separate each points with ; ..."*/}
-                            {/*                           variant="standard" />*/}
-                            {/*            </div>*/}
-                            {/*            <div className="col-sm-6">*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           name="place"*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           label="Address"*/}
-                            {/*                           placeholder = "Enter your company address..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-                            {/*                <label htmlFor="start">Start Date:</label><br/>*/}
-                            {/*                <input*/}
-                            {/*                    type="date"*/}
-                            {/*                    required*/}
-                            {/*                    name="startDate"*/}
-                            {/*                    onChange={inputChangeHandler}*/}
-                            {/*                    id="start" /><br/><br/>*/}
-
-                            {/*                <label htmlFor="end">End Date:</label><br/>*/}
-                            {/*                <input*/}
-                            {/*                    type="date"*/}
-                            {/*                    name="endDate"*/}
-                            {/*                    onChange={inputChangeHandler}*/}
-                            {/*                    id="end"/><br/><br/>*/}
-                            {/*            </div>*/}
-                            {/*        </div><br/>*/}
-                            {/*        <Button type="submit" variant="contained">save</Button>*/}
-                            {/*    </form>*/}
-                            {/*</>*/}
                         </div>
                     </div>
-                    {/*<form onSubmit={formSubmitHandler}>*/}
-                    {/*    <div className="row">*/}
-                    {/*        <div className="col-sm-6">*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       label="Job Title"*/}
-                    {/*                       name="jobTitle"*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       placeholder = "Enter your job title..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       name="employer"*/}
-                    {/*                       label="Employer"*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       placeholder = "Enter your employer..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       name="jobDescription"*/}
-                    {/*                       multiline*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       minRows={2}*/}
-                    {/*                       maxRows={5}*/}
-                    {/*                       label="Job Description"*/}
-                    {/*                       placeholder = "Please separate each points with | ..."*/}
-                    {/*                       variant="standard" />*/}
-                    {/*        </div>*/}
-                    {/*        <div className="col-sm-6">*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       name="place"*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       label="Address"*/}
-                    {/*                       placeholder = "Enter your company address..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <label htmlFor="start">Start Date:</label><br/>*/}
-                    {/*            <input*/}
-                    {/*                type="date"*/}
-                    {/*                required*/}
-                    {/*                name="startDate"*/}
-                    {/*                onChange={inputChangeHandler}*/}
-                    {/*                id="start" /><br/><br/>*/}
-
-                    {/*            <label htmlFor="end">End Date:</label><br/>*/}
-                    {/*            <input*/}
-                    {/*                type="date"*/}
-                    {/*                name="endDate"*/}
-                    {/*                onChange={inputChangeHandler}*/}
-                    {/*                id="end"/><br/><br/>*/}
-                    {/*        </div>*/}
-                    {/*    </div><br/>*/}
-                    {/*    <Button type="submit" variant="contained">save</Button>*/}
-                    {/*</form>*/}
                 </div>
             </div>
         </div>

@@ -3,13 +3,14 @@
     display: flex;
     position: relative;
     flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    vertical-align: center;
+    /*justify-content: center;*/
+    /*align-content: center;*/
+    /*vertical-align: center;*/
     /*background-color: red;*/
     padding: 30px 20px;
     box-sizing: border-box;
 }
+
 
 .card__right {
     display: flex;
@@ -77,6 +78,19 @@
     font-weight: 300;
 }
 
+.experience__description {
+    background: #172A45;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
+    color: #A8B2D1;
+    margin: 5px 0;
+    padding: 15px;
+    font-size: 16px;
+    line-height: 30px;
+    border-radius: 5px;
+    width: 100%;
+    font-weight: 300;
+}
+
 .project__description:hover {
     -webkit-transform: translateX(30px);
     -moz-transform: translateX(30px);
@@ -99,12 +113,43 @@
     font-weight: 300;
 }
 
+.experience__title h4 {
+    color: #64FFDA;
+    font-weight: 300;
+    margin-bottom: 0;
+}
+
+.experience__title h3 {
+    color: #CCD6F6;
+    font-weight: 300;
+}
+
+.experience__title h5 {
+    font-weight: 300;
+}
+
 .project__number  {
     color: rgba(100, 255, 218, 0.1);
     font-size: 100px;
     left: 0;
     top: 0;
     margin-left: 15px;
+    font-family: 'Poppins', sans-serifs;
+    letter-spacing: 10px;
+    position: absolute;
+    z-index: 1;
+}
+
+.work-experience-card {
+    position: relative;
+    padding: 30px 20px;
+}
+
+.experience__number {
+    color: rgba(100, 255, 218, 0.1);
+    font-size: 100px;
+    left: 0;
+    top: 0;
     font-family: 'Poppins', sans-serifs;
     letter-spacing: 10px;
     position: absolute;

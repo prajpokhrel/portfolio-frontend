@@ -74,12 +74,10 @@ const PortfolioBuilder = (props) => {
                 auth === true ?
                     (
                     <>
-                        {/*Refactor this later*/}
                         <Navigation headingTitle="Portfolio Build"
                                     createPortfolioButton={false}
                                     loggedUserName={currentUser.userName}
                         />
-                        {/*  Separating sections for portfolio */}
                         <section className="build_portfolio_section bg-light text-dark">
                             <div className="container">
                                 <div className="row">
@@ -157,7 +155,7 @@ const PortfolioBuilder = (props) => {
                     : auth === false ?
                     (
                         <Redirect to="/auth/login" />
-                    ) : auth === null ? <Loader /> : null
+                    ) : auth === null ? <Loader message="Gathering information... Please wait for a while..." redirectButton={false} /> : null
             }
         </div>
     );

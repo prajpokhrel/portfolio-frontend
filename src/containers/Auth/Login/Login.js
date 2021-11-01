@@ -4,6 +4,8 @@ import axios from "../../../axios-portfolio";
 import {useHistory} from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 const Login = () => {
 
@@ -11,6 +13,9 @@ const Login = () => {
         email: '',
         password: ''
     });
+
+    const [loginError, setLoginError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const history = useHistory();
 
@@ -25,13 +30,17 @@ const Login = () => {
                 history.push('/profile');
             }
         } catch (error) {
-            console.log(error.response.data);
-            console.log("Sorry buddy...");
+            // console.log(error.response.data);
+            setLoginError(error.response.data);
         }
     };
 
     const inputChangedHandler = (event) => {
         setFormData({...formData, [event.target.name]: event.target.value});
+    };
+
+    const handleCheckboxChecked = () => {
+        setShowPassword(!showPassword);
     };
 
 
@@ -43,6 +52,8 @@ const Login = () => {
                     <div className="mb-3 mt-3">
                         <TextField fullWidth
                                    required
+                                   error={loginError !== ""}
+                                   helperText={loginError}
                                    name="email"
                                    onChange={inputChangedHandler}
                                    label="E-Mail"
@@ -53,12 +64,20 @@ const Login = () => {
                     <div className="mb-3 mt-3">
                         <TextField fullWidth
                                    required
+                                   error={loginError !== ""}
+                                   helperText={loginError}
                                    name="password"
                                    onChange={inputChangedHandler}
                                    label="Password"
-                                   type="password"
+                                   type={showPassword ? "text" : "password"}
                                    placeholder = "Enter your password..."
                                    variant="standard" />
+                        <FormControlLabel
+                            value="true"
+                            control={<Checkbox onChange={handleCheckboxChecked} />}
+                            label="Show Password"
+                            labelPlacement="end"
+                        />
                     </div>
                     <Button fullWidth variant="contained" type="submit">Submit</Button>
                 </form>

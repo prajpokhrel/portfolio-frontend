@@ -66,7 +66,7 @@ const SkillsForm = (props) => {
                         {
                             props.toggleButton
                                 ? <Button type="submit" variant="contained">save</Button>
-                                : <Button type="submit" variant="contained">Update</Button>
+                                : <Button onClick={() => props.formUpdate(props.userData._id)} variant="contained">Update</Button>
                         }
 
                     </div>

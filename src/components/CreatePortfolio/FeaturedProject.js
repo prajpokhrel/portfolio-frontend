@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from "react";
 import "./CreatePortfolio.css";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "../../axios-portfolio";
 import { useParams } from "react-router-dom";
 import FeaturedProjectForm from "../Forms/FeaturedProjectForm";
-import PersonalInfoForm from "../Forms/PersonalInfoForm";
+import CommonModal from "../Modal/CommonModal";
 
 const FeaturedProject = () => {
     const [featuredProject, setFeaturedProject] = useState({
         title : '',
         description : '',
-        tools : '',
+        tools : [],
         projectImage : '',
         github : '',
         demo : ''
@@ -19,6 +18,10 @@ const FeaturedProject = () => {
 
     const [updateData, setUpdateData] = useState([]);
     const [renderState, setRenderState] = useState(true);
+
+    const [showModal, setShowModal] = useState(false);
+    const [errorLog, setErrorLog] = useState('');
+
     const { portfolioId } = useParams();
 
     useEffect(() => {
@@ -45,6 +48,8 @@ const FeaturedProject = () => {
         }
     };
 
+    const handleModalToggle = () => setShowModal(!showModal);
+
     const fileSelectHandler = (event) => {
         setFeaturedProject({...featuredProject, projectImage: event.target.files[0]});
     };
@@ -56,7 +61,10 @@ const FeaturedProject = () => {
             const formData = new FormData();
             formData.append('title', featuredProject.title);
             formData.append('description', featuredProject.description);
-            formData.append('tools', featuredProject.tools);
+
+            featuredProject.tools.forEach((value) => {
+                formData.append('tools[]', value);
+            });
             formData.append('projectImage', featuredProject.projectImage, featuredProject.projectImage.name);
             formData.append('github', featuredProject.github);
             formData.append('demo', featuredProject.demo);
@@ -66,6 +74,8 @@ const FeaturedProject = () => {
             setRenderState(!renderState);
         } catch (error) {
             console.log(error.response.data);
+            setErrorLog(error.response.data);
+            setShowModal(!showModal);
         }
     };
 
@@ -82,6 +92,12 @@ const FeaturedProject = () => {
 
     return (
         <div>
+            <CommonModal errorTitle={true}
+                         modalName="Oops! Something went wrong."
+                         createPortfolioModal={handleModalToggle}
+                         show={showModal}>
+                {errorLog}
+            </CommonModal>
             <div className="row mt-3">
                 <div className="col-sm-10 m-auto">
                     <div className="row">
@@ -98,9 +114,6 @@ const FeaturedProject = () => {
                                             </div>
                                             <div className="col-sm-4 pt-2 pb-2 text-light controlButtons">
                                                 <Button onClick={() => dataDeleteHandler(data._id)} variant="contained" color="error">Delete</Button>
-                                                {/*<ButtonGroup variant="contained">*/}
-                                                {/*    <Button color="error">Delete</Button>*/}
-                                                {/*</ButtonGroup>*/}
                                             </div>
                                         </div>
                                     );
@@ -112,119 +125,8 @@ const FeaturedProject = () => {
                                                  fileSelect={fileSelectHandler}
                                                  userData={featuredProject}
                             />
-                            {/*<>*/}
-                            {/*    {updateData.length === 0 ? <p className="lead text-warning">Please add your work experience.</p> : null}*/}
-                            {/*    <form onSubmit={formSubmitHandler}>*/}
-                            {/*        <div className="row">*/}
-                            {/*            <div className="col-sm-12">*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           name="title"*/}
-                            {/*                           required*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           label="Project Title"*/}
-                            {/*                           placeholder = "Enter your project title ..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           name="description"*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           multiline*/}
-                            {/*                           maxRows={4}*/}
-                            {/*                           minRows={2}*/}
-                            {/*                           label="Description"*/}
-                            {/*                           placeholder = "Enter short project description ..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           name="tools"*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           label="Technology and Tools"*/}
-                            {/*                           placeholder = "Python | Bootstrap | ..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-                            {/*                <span className="lead">Project UI Image</span><br/>*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           type="file"*/}
-                            {/*                           name="projectImage"*/}
-                            {/*                           onChange={fileSelectHandler}*/}
-                            {/*                           accept="image/png, image/gif, image/jpeg"*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           name="github"*/}
-                            {/*                           label="Github Link"*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           placeholder = "Add a git repository of your project ..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           name="demo"*/}
-                            {/*                           label="Demo Link"*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           placeholder = "Add a project hosted site ..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-
-                            {/*                <Button type="submit" variant="contained">save</Button>*/}
-                            {/*            </div>*/}
-                            {/*        </div>*/}
-                            {/*    </form>*/}
-                            {/*</>*/}
                         </div>
                     </div>
-                    {/*<form onSubmit={formSubmitHandler}>*/}
-                    {/*    <div className="row">*/}
-                    {/*        <div className="col-sm-12">*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       name="title"*/}
-                    {/*                       required*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       label="Project Title"*/}
-                    {/*                       placeholder = "Enter your project title ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       name="description"*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       multiline*/}
-                    {/*                       maxRows={4}*/}
-                    {/*                       minRows={2}*/}
-                    {/*                       label="Description"*/}
-                    {/*                       placeholder = "Enter short project description ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       name="tools"*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       label="Technology and Tools"*/}
-                    {/*                       placeholder = "Python | Bootstrap | ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <span className="lead">Project UI Image</span><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       type="file"*/}
-                    {/*                       name="projectImage"*/}
-                    {/*                       onChange={fileSelectHandler}*/}
-                    {/*                       accept="image/png, image/gif, image/jpeg"*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       name="github"*/}
-                    {/*                       label="Github Link"*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       placeholder = "Add a git repository of your project ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       name="demo"*/}
-                    {/*                       label="Demo Link"*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       placeholder = "Add a project hosted site ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-
-                    {/*            <Button type="submit" variant="contained">save</Button>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</form>*/}
                 </div>
             </div>
         </div>

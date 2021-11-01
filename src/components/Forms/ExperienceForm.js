@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 const ExperienceForm = (props) => {
     return (
         <>
-            <p className="lead text-info"><b>Please add your work experience.</b></p>
+            <p className="lead text-info"><b>Please add your work experience. [From Newest to Oldest.]</b></p>
             <form onSubmit={props.formSubmit}>
                 <div className="row">
                     <span className="lead">

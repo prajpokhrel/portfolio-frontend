@@ -4,7 +4,6 @@ import { Link, Switch, Route, useRouteMatch } from "react-router-dom";
 import Login from "./Login/Login";
 import Registration from "./Registration/Registration";
 import Button from "@mui/material/Button";
-import Landing from "./Landing";
 
 const Auth = () => {
 
@@ -33,7 +32,6 @@ const Auth = () => {
                                 <h1 className="text-center">IMPRESSIVE PORTFOLIOS</h1>
                                 <p className="text-center">Professional out-of-the-box portfolios, instantly generated
                                     by the most advanced portfolio builder technology available.</p>
-                                {/*<h4 className="text-center">Choose the best option below to get started</h4>*/}
                             </div>
                         </div>
                         <div className="row">

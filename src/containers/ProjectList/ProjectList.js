@@ -1,9 +1,8 @@
 import React, {useEffect} from "react";
 import "./ProjectList.css";
-import {Link} from "react-router-dom";
 import ProjectListCard from "../../components/ProjectListCard/ProjectListCard";
 
-const ProjectList = () => {
+const ProjectList = ({other}) => {
 
     return (
         <div className="container-fluid main__container">
@@ -14,7 +13,7 @@ const ProjectList = () => {
                             <small>Collection of all of my works</small>
                     </p>
 
-                    <ProjectListCard />
+                    <ProjectListCard other={other}/>
                 </div>
             </div>
         </div>

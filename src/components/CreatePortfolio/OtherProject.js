@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import "./CreatePortfolio.css";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "../../axios-portfolio";
 import { useParams } from "react-router-dom";
 import OtherProjectForm from "../Forms/OtherProjectForm";
-import FeaturedProjectForm from "../Forms/FeaturedProjectForm";
+import CommonModal from "../Modal/CommonModal";
 
 
 const OtherProject = () => {
@@ -13,13 +12,17 @@ const OtherProject = () => {
     const [otherProject, setOtherProject] = useState({
         title: '',
         description : '',
-        tools : '',
+        tools : [],
         github : '',
         demo : ''
     });
 
     const [updateData, setUpdateData] = useState([]);
     const [renderState, setRenderState] = useState(true);
+
+    const [showModal, setShowModal] = useState(false);
+    const [errorLog, setErrorLog] = useState('');
+
     const { portfolioId } = useParams();
 
     useEffect(() => {
@@ -46,6 +49,8 @@ const OtherProject = () => {
         }
     };
 
+    const handleModalToggle = () => setShowModal(!showModal);
+
     const formSubmitHandler = async (event) => {
         event.preventDefault();
 
@@ -56,6 +61,8 @@ const OtherProject = () => {
             setRenderState(!renderState);
         } catch (error) {
             console.log(error.response.data);
+            setErrorLog(error.response.data);
+            setShowModal(!showModal);
         }
     };
 
@@ -72,6 +79,12 @@ const OtherProject = () => {
 
     return (
         <div>
+            <CommonModal errorTitle={true}
+                         modalName="Oops! Something went wrong."
+                         createPortfolioModal={handleModalToggle}
+                         show={showModal}>
+                {errorLog}
+            </CommonModal>
             <div className="row mt-3">
                 <div className="col-sm-10 m-auto">
                     <div className="row">
@@ -88,9 +101,6 @@ const OtherProject = () => {
                                             </div>
                                             <div className="col-sm-4 pt-2 pb-2 text-light controlButtons">
                                                 <Button onClick={() => dataDeleteHandler(data._id)} variant="contained" color="error">Delete</Button>
-                                                {/*<ButtonGroup variant="contained">*/}
-                                                {/*    <Button color="error">Delete</Button>*/}
-                                                {/*</ButtonGroup>*/}
                                             </div>
                                         </div>
                                     );
@@ -102,103 +112,8 @@ const OtherProject = () => {
                                               userData={otherProject}
                             />
 
-                            {/*<>*/}
-                            {/*    {updateData.length === 0 ? <p className="lead text-warning">Please add your work experience.</p> : null}*/}
-                            {/*    <form onSubmit={formSubmitHandler}>*/}
-                            {/*        <div className="row">*/}
-                            {/*            <div className="col-sm-12">*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           name="title"*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           label="Project Title"*/}
-                            {/*                           placeholder = "Enter your project title ..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           name="description"*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           multiline*/}
-                            {/*                           maxRows={4}*/}
-                            {/*                           minRows={2}*/}
-                            {/*                           label="Description"*/}
-                            {/*                           placeholder = "Enter short project description ..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           name="tools"*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           label="Technology and Tools"*/}
-                            {/*                           placeholder = "Python | Bootstrap | ..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           name="github"*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           label="Github Link"*/}
-                            {/*                           placeholder = "Add a git repository of your project ..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-                            {/*                <TextField fullWidth*/}
-                            {/*                           required*/}
-                            {/*                           name="demo"*/}
-                            {/*                           onChange={inputChangeHandler}*/}
-                            {/*                           label="Demo Link"*/}
-                            {/*                           placeholder = "Add a project hosted site ..."*/}
-                            {/*                           variant="standard" /><br/><br/>*/}
-
-                            {/*                <Button type="submit" variant="contained">save</Button>*/}
-                            {/*            </div>*/}
-                            {/*        </div>*/}
-                            {/*    </form>*/}
-                            {/*</>*/}
                         </div>
                     </div>
-                    {/*<form onSubmit={formSubmitHandler}>*/}
-                    {/*    <div className="row">*/}
-                    {/*        <div className="col-sm-12">*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       name="title"*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       label="Project Title"*/}
-                    {/*                       placeholder = "Enter your project title ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       name="description"*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       multiline*/}
-                    {/*                       maxRows={4}*/}
-                    {/*                       minRows={2}*/}
-                    {/*                       label="Description"*/}
-                    {/*                       placeholder = "Enter short project description ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       name="tools"*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       label="Technology and Tools"*/}
-                    {/*                       placeholder = "Python | Bootstrap | ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       name="github"*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       label="Github Link"*/}
-                    {/*                       placeholder = "Add a git repository of your project ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-                    {/*            <TextField fullWidth*/}
-                    {/*                       required*/}
-                    {/*                       name="demo"*/}
-                    {/*                       onChange={inputChangeHandler}*/}
-                    {/*                       label="Demo Link"*/}
-                    {/*                       placeholder = "Add a project hosted site ..."*/}
-                    {/*                       variant="standard" /><br/><br/>*/}
-
-                    {/*            <Button type="submit" variant="contained">save</Button>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</form>*/}
                 </div>
             </div>
         </div>

@@ -10,11 +10,13 @@ import ContactSection from "../../components/PortfolioSections/ContactSection";
 import FooterSection from "../../components/PortfolioSections/FooterSection";
 import axios from "../../axios-portfolio";
 import Loader from "../../components/Loader/Loader";
-import { Redirect } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 
 const Portfolio = () => {
 
     const [auth, setAuth] = useState(null);
+    const [portfolioDetails, setPortfolioDetails] = useState({});
+    const { portfolioId } = useParams();
 
     useEffect(() => {
         const loggedInUser = () => {
@@ -33,25 +35,57 @@ const Portfolio = () => {
 
     }, []);
 
+    console.log(portfolioId);
+
+    useEffect(() => {
+        const portfolioDetails = () => {
+            axios.get(`/portfolio/${portfolioId}`, {withCredentials: true, credentials: 'include'})
+                .then((response) => {
+                    setPortfolioDetails(response.data[0]);
+                }).catch((error) => {
+                    console.log(error.response.data);
+            });
+        };
+
+        portfolioDetails();
+    }, []);
+
+    console.log("MY PORTFOLIO DETAILS", portfolioDetails);
+
     return (
         <div className="bg-dark text-light">
             {
                 auth === true ? (
                     <>
-                        <LightDarkSwitch />
-                        <IntroductionSection />
-                        <AboutMeSection />
-                        <SkillsSection />
-                        <ExperienceSection />
-                        <PortfolioProjectsSection />
-                        <ContactSection />
-                        <FooterSection />
+                        {
+                            Object.keys(portfolioDetails).length !== 0
+                            && portfolioDetails.personal.length !== 0
+                            && portfolioDetails.background.length !== 0
+                            && portfolioDetails.skill.length !== 0
+                            && portfolioDetails.experience.length !== 0
+                            && portfolioDetails.featured.length !== 0
+                            && portfolioDetails.other.length !== 0
+                            && portfolioDetails.contact.length !== 0
+                                ?
+                                <>
+                                    <LightDarkSwitch />
+                                    <IntroductionSection introDetails={portfolioDetails.personal} />
+                                    <AboutMeSection aboutMeDetails={portfolioDetails.background}
+                                                    introDetails={portfolioDetails.personal} />
+                                    <SkillsSection skillDetails={portfolioDetails.skill} />
+                                    <ExperienceSection experienceDetails={portfolioDetails.experience} />
+                                    <PortfolioProjectsSection featured={portfolioDetails.featured}
+                                                              other={portfolioDetails.other} />
+                                    <ContactSection contactDetails={portfolioDetails.contact} />
+                                    <FooterSection />
+                                </> : <Loader message="Portfolio Incomplete... Come back later after you complete building it..." redirectButton={true}/>
+                        }
                     </>
                 ) : auth === false ?
                 (
                     <Redirect to="/auth/login" />
                 )
-                : auth === null ? <Loader /> : null
+                : auth === null ? <Loader message="Gathering information... Please wait for a while..." redirectButton={false} /> : null
             }
         </div>
     );

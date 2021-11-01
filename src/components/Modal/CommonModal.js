@@ -7,11 +7,10 @@ const CommonModal = (props) => {
     return (
         <div id="myModal" onClick={props.createPortfolioModal} className="modal" style={{display: props.show ? 'block' : 'none'}}>
             <div  onClick={(event) => {
-                // do not close modal if anything inside modal content is clicked
                 event.stopPropagation();
             }} className="modal_content">
                 <div className="modalHeader">
-                    <h4>Create Portfolio</h4>
+                    <h4 className={props.errorTitle ? 'text-danger' : ''}>{props.modalName}</h4>
                     <span className="close" onClick={props.createPortfolioModal}>&times;</span>
                 </div>
                 <div>
