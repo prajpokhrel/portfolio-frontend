@@ -24,7 +24,7 @@ const Login = () => {
 
         try {
             const response = await axios.post('/auth', formData,
-                {withCredentials: true, credentials: 'include'});
+                {withCredentials: true});
 
             if (response) {
                 history.push('/profile');
