@@ -24,7 +24,8 @@ const BackgroundInfo = () => {
 
     useEffect(() => {
         const getData = () => {
-            axios.get(`/backgroundInfo/${portfolioId}`)
+            axios.get(`/backgroundInfo/${portfolioId}`,
+                {withCredentials: true})
                 .then((response) => {
                     if (response.data.length !== 0) {
                         setBackgroundInfo(response.data[0]);
@@ -50,7 +51,8 @@ const BackgroundInfo = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post(`/backgroundInfo/${portfolioId}`, backgroundInfo);
+            const response = await axios.post(`/backgroundInfo/${portfolioId}`, backgroundInfo,
+                {withCredentials: true});
             // console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -63,7 +65,8 @@ const BackgroundInfo = () => {
 
     const formUpdateHandler = async (id) => {
         try {
-            const response = await axios.patch(`/backgroundInfo/${id}`, backgroundInfo);
+            const response = await axios.patch(`/backgroundInfo/${id}`, backgroundInfo,
+                {withCredentials: true});
             // console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -75,8 +78,9 @@ const BackgroundInfo = () => {
 
     const dataDeleteHandler = async (id) => {
         try {
-            const response = await axios.delete(`/backgroundInfo/${id}`);
-            console.log(response.data);
+            const response = await axios.delete(`/backgroundInfo/${id}`,
+                {withCredentials: true});
+            // console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
             console.log("ERROR", error.response);

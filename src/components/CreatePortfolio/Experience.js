@@ -28,7 +28,8 @@ const Experience = () => {
 
     useEffect(() => {
         const getData = () => {
-            axios.get(`/experience/${portfolioId}`)
+            axios.get(`/experience/${portfolioId}`,
+                {withCredentials: true})
                 .then((response) => {
                     setUpdateData(response.data);
                     // console.log(response.data);
@@ -56,7 +57,8 @@ const Experience = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post(`/experience/${portfolioId}`, experience);
+            const response = await axios.post(`/experience/${portfolioId}`, experience,
+                {withCredentials: true});
             // console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -68,7 +70,8 @@ const Experience = () => {
 
     const dataDeleteHandler = async (id) => {
         try {
-            const response = await axios.delete(`/experience/${id}`);
+            const response = await axios.delete(`/experience/${id}`,
+                {withCredentials: true});
             // console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {

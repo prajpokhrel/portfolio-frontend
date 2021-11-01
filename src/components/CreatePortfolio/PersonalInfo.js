@@ -26,7 +26,8 @@ const PersonalInfo = () => {
 
     useEffect(() => {
         const getData = () => {
-            axios.get(`/personalInfo/${portfolioId}`)
+            axios.get(`/personalInfo/${portfolioId}`,
+                {withCredentials: true})
                 .then((response) => {
                     if (response.data.length !== 0) {
                         setPersonalInfo(response.data[0]);
@@ -48,7 +49,8 @@ const PersonalInfo = () => {
 
     const dataDeleteHandler = async (id) => {
         try {
-            const response = await axios.delete(`/personalInfo/${id}`);
+            const response = await axios.delete(`/personalInfo/${id}`,
+                {withCredentials: true});
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -77,7 +79,8 @@ const PersonalInfo = () => {
             formData.append('email', personalInfo.email);
             formData.append('bio', personalInfo.bio);
             formData.append('profileImage', personalInfo.profileImage, personalInfo.profileImage.name);
-            const response = await axios.post(`/personalInfo/${portfolioId}`, formData);
+            const response = await axios.post(`/personalInfo/${portfolioId}`, formData,
+                {withCredentials: true});
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -98,7 +101,8 @@ const PersonalInfo = () => {
             if (typeof personalInfo.profileImage !== 'string') {
                 formDataUpdate.append('profileImage', personalInfo.profileImage, personalInfo.profileImage.name);
             }
-            const response = await axios.patch(`/personalInfo/${id}`, formDataUpdate);
+            const response = await axios.patch(`/personalInfo/${id}`, formDataUpdate,
+                {withCredentials: true});
             console.log(response.data);
             setRenderState(!renderState);
 
