@@ -24,8 +24,7 @@ const Skills = () => {
 
     useEffect(() => {
         const getData = () => {
-            axios.get(`/skills/${portfolioId}`,
-                {withCredentials: true, credentials: "include"})
+            axios.get(`/skills/${portfolioId}`)
                 .then((response) => {
                     if (response.data.length !== 0) {
                         setSkills(response.data[0]);
@@ -54,8 +53,7 @@ const Skills = () => {
         console.log(skills);
 
         try {
-            const response = await axios.post(`/skills/${portfolioId}`, skills,
-                {withCredentials: true, credentials: 'include'});
+            const response = await axios.post(`/skills/${portfolioId}`, skills);
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -68,8 +66,7 @@ const Skills = () => {
     const formUpdateHandler = async (id) => {
         console.log(skills);
         try {
-            const response = await axios.patch(`/skills/${id}`, skills,
-                {withCredentials: true, credentials: 'include'});
+            const response = await axios.patch(`/skills/${id}`, skills);
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -81,8 +78,7 @@ const Skills = () => {
 
     const dataDeleteHandler = async (id) => {
         try {
-            const response = await axios.delete(`/skills/${id}`,
-                {withCredentials: true, credentials: "include"});
+            const response = await axios.delete(`/skills/${id}`);
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {

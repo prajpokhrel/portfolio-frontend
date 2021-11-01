@@ -23,8 +23,7 @@ const Login = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('/auth', formData,
-                {withCredentials: true, credentials: 'include'});
+            const response = await axios.post('/auth', formData);
 
             if (response) {
                 history.push('/profile');

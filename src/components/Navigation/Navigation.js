@@ -9,7 +9,7 @@ const Navigation = (props) => {
     const history = useHistory();
 
     const logoutHandler = () => {
-        axios.get('/users/logout', {withCredentials: true, credentials: "include"})
+        axios.get('/users/logout')
             .then((response) => {
                 console.log(response.data);
                 setLoggedOut(true);

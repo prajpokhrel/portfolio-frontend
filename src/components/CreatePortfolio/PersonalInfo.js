@@ -26,8 +26,7 @@ const PersonalInfo = () => {
 
     useEffect(() => {
         const getData = () => {
-            axios.get(`/personalInfo/${portfolioId}`,
-                {withCredentials: true, credentials: "include"})
+            axios.get(`/personalInfo/${portfolioId}`)
                 .then((response) => {
                     if (response.data.length !== 0) {
                         setPersonalInfo(response.data[0]);
@@ -49,8 +48,7 @@ const PersonalInfo = () => {
 
     const dataDeleteHandler = async (id) => {
         try {
-            const response = await axios.delete(`/personalInfo/${id}`,
-                {withCredentials: true, credentials: "include"});
+            const response = await axios.delete(`/personalInfo/${id}`);
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -79,8 +77,7 @@ const PersonalInfo = () => {
             formData.append('email', personalInfo.email);
             formData.append('bio', personalInfo.bio);
             formData.append('profileImage', personalInfo.profileImage, personalInfo.profileImage.name);
-            const response = await axios.post(`/personalInfo/${portfolioId}`, formData,
-                {withCredentials: true, credentials: 'include'});
+            const response = await axios.post(`/personalInfo/${portfolioId}`, formData);
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -101,8 +98,7 @@ const PersonalInfo = () => {
             if (typeof personalInfo.profileImage !== 'string') {
                 formDataUpdate.append('profileImage', personalInfo.profileImage, personalInfo.profileImage.name);
             }
-            const response = await axios.patch(`/personalInfo/${id}`, formDataUpdate,
-                {withCredentials: true, credentials: 'include'});
+            const response = await axios.patch(`/personalInfo/${id}`, formDataUpdate);
             console.log(response.data);
             setRenderState(!renderState);
 

@@ -26,8 +26,7 @@ const FeaturedProject = () => {
 
     useEffect(() => {
         const getData = () => {
-            axios.get(`/featuredProject/${portfolioId}`,
-                {withCredentials: true, credentials: "include"})
+            axios.get(`/featuredProject/${portfolioId}`)
                 .then((response) => {
                     setUpdateData(response.data);
                     console.log(response.data);
@@ -68,8 +67,7 @@ const FeaturedProject = () => {
             formData.append('projectImage', featuredProject.projectImage, featuredProject.projectImage.name);
             formData.append('github', featuredProject.github);
             formData.append('demo', featuredProject.demo);
-            const response = await axios.post(`/featuredProject/${portfolioId}`, formData,
-                {withCredentials: true, credentials: 'include'});
+            const response = await axios.post(`/featuredProject/${portfolioId}`, formData);
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -81,8 +79,7 @@ const FeaturedProject = () => {
 
     const dataDeleteHandler = async (id) => {
         try {
-            const response = await axios.delete(`/featuredProject/${id}`,
-                {withCredentials: true, credentials: "include"});
+            const response = await axios.delete(`/featuredProject/${id}`);
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {

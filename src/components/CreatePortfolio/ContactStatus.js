@@ -20,8 +20,7 @@ const ContactStatus = () => {
 
     useEffect(() => {
         const getData = () => {
-            axios.get(`/contact/${portfolioId}`,
-                {withCredentials: true, credentials: "include"})
+            axios.get(`/contact/${portfolioId}`)
                 .then((response) => {
                     if (response.data.length !== 0) {
                         setContactStatus(response.data[0]);
@@ -47,8 +46,7 @@ const ContactStatus = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post(`/contact/${portfolioId}`, contactStatus,
-                {withCredentials: true, credentials: 'include'});
+            const response = await axios.post(`/contact/${portfolioId}`, contactStatus);
             // console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -60,8 +58,7 @@ const ContactStatus = () => {
 
     const formUpdateHandler = async (id) => {
         try {
-            const response = await axios.patch(`/contact/${id}`, contactStatus,
-                {withCredentials: true, credentials: 'include'});
+            const response = await axios.patch(`/contact/${id}`, contactStatus);
             // console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -73,8 +70,7 @@ const ContactStatus = () => {
 
     const dataDeleteHandler = async (id) => {
         try {
-            const response = await axios.delete(`/contact/${id}`,
-                {withCredentials: true, credentials: "include"});
+            const response = await axios.delete(`/contact/${id}`);
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {

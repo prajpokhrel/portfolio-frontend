@@ -36,7 +36,7 @@ const Profile = (props) => {
 
     useEffect(() => {
         const loggedInUser = () => {
-            axios.get('/users/me', {withCredentials: true, credentials: 'include'})
+            axios.get('/users/me')
                 .then((response) => {
                     console.log("Logged in user", response.data);
                     setCurrentUser(prevState => response.data)
@@ -54,7 +54,7 @@ const Profile = (props) => {
 
     useEffect(() => {
         const getPortfolios = () => {
-            axios.get('/portfolio', {withCredentials: true, credentials: "include"})
+            axios.get('/portfolio')
                 .then((response) => {
                     console.log(response.data);
                     setPortfolios(response.data);
@@ -77,8 +77,7 @@ const Profile = (props) => {
 
     const deletePortfolioHandler = async (portfolioId) => {
         try {
-            const response = await axios.delete(`/portfolio/${portfolioId}`,
-                {withCredentials: true, credentials: "include"});
+            const response = await axios.delete(`/portfolio/${portfolioId}`);
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -90,8 +89,7 @@ const Profile = (props) => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('/portfolio', formData,
-                {withCredentials: true, credentials: 'include'});
+            const response = await axios.post('/portfolio', formData);
             console.log(response.data);
             setRenderState(!renderState)
             setShowModal(!showModal);

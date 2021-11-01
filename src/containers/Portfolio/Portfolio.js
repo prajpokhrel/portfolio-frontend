@@ -20,7 +20,7 @@ const Portfolio = () => {
 
     useEffect(() => {
         const loggedInUser = () => {
-            axios.get('/users/me', {withCredentials: true, credentials: 'include'})
+            axios.get('/users/me')
                 .then((response) => {
                     console.log("Logged in user", response.data);
                     setAuth(prevState => true);
@@ -39,7 +39,7 @@ const Portfolio = () => {
 
     useEffect(() => {
         const portfolioDetails = () => {
-            axios.get(`/portfolio/${portfolioId}`, {withCredentials: true, credentials: 'include'})
+            axios.get(`/portfolio/${portfolioId}`)
                 .then((response) => {
                     setPortfolioDetails(response.data[0]);
                 }).catch((error) => {

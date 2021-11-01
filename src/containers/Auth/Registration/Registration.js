@@ -35,8 +35,7 @@ const Registration = () => {
         event.preventDefault();
         try  {
 
-            const response = await axios.post('/users/', formData,
-                {withCredentials: true, credentials: 'include'});
+            const response = await axios.post('/users/', formData);
             // console.log(response.data);
             history.push('/auth/login');
 
