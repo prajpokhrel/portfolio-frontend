@@ -39,7 +39,7 @@ const PortfolioBuilder = (props) => {
 
     useEffect(() => {
         const loggedInUser = () => {
-            axios.get('/users/me')
+            axios.get('/users/me', {withCredentials: true, credentials: 'include'})
                 .then((response) => {
                     console.log("Logged in user", response.data);
                     setCurrentUser(prevState => response.data)

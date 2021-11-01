@@ -50,8 +50,6 @@ const Portfolio = () => {
         portfolioDetails();
     }, []);
 
-    console.log("MY PORTFOLIO DETAILS", portfolioDetails);
-
     return (
         <div className="bg-dark text-light">
             {
