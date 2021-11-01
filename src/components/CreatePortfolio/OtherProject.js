@@ -28,7 +28,7 @@ const OtherProject = () => {
     useEffect(() => {
         const getData = () => {
             axios.get(`/otherProject/${portfolioId}`,
-                {withCredentials: true})
+                {withCredentials: true, credentials: 'include'})
                 .then((response) => {
                     setUpdateData(response.data);
                     console.log(response.data);
@@ -56,7 +56,7 @@ const OtherProject = () => {
 
         try {
             const response = await axios.post(`/otherProject/${portfolioId}`, otherProject,
-                {withCredentials: true});
+                {withCredentials: true, credentials: 'include'});
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -69,7 +69,7 @@ const OtherProject = () => {
     const dataDeleteHandler = async (id) => {
         try {
             const response = await axios.delete(`/otherProject/${id}`,
-                {withCredentials: true});
+                {withCredentials: true, credentials: 'include'});
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {

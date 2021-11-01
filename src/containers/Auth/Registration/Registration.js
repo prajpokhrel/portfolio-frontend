@@ -36,7 +36,7 @@ const Registration = () => {
         try  {
 
             const response = await axios.post('/users/', formData,
-                {withCredentials: true});
+                {withCredentials: true, credentials: 'include'});
             // console.log(response.data);
             history.push('/auth/login');
 

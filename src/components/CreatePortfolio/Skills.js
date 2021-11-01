@@ -25,7 +25,7 @@ const Skills = () => {
     useEffect(() => {
         const getData = () => {
             axios.get(`/skills/${portfolioId}`,
-                {withCredentials: true})
+                {withCredentials: true, credentials: 'include'})
                 .then((response) => {
                     if (response.data.length !== 0) {
                         setSkills(response.data[0]);
@@ -55,7 +55,7 @@ const Skills = () => {
 
         try {
             const response = await axios.post(`/skills/${portfolioId}`, skills,
-                {withCredentials: true});
+                {withCredentials: true, credentials: 'include'});
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -69,7 +69,7 @@ const Skills = () => {
         console.log(skills);
         try {
             const response = await axios.patch(`/skills/${id}`, skills,
-                {withCredentials: true});
+                {withCredentials: true, credentials: 'include'});
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -82,7 +82,7 @@ const Skills = () => {
     const dataDeleteHandler = async (id) => {
         try {
             const response = await axios.delete(`/skills/${id}`,
-                {withCredentials: true});
+                {withCredentials: true, credentials: 'include'});
             console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {

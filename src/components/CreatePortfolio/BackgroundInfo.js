@@ -25,7 +25,7 @@ const BackgroundInfo = () => {
     useEffect(() => {
         const getData = () => {
             axios.get(`/backgroundInfo/${portfolioId}`,
-                {withCredentials: true})
+                {withCredentials: true, credentials: 'include'})
                 .then((response) => {
                     if (response.data.length !== 0) {
                         setBackgroundInfo(response.data[0]);
@@ -52,7 +52,7 @@ const BackgroundInfo = () => {
 
         try {
             const response = await axios.post(`/backgroundInfo/${portfolioId}`, backgroundInfo,
-                {withCredentials: true});
+                {withCredentials: true, credentials: 'include'});
             // console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -66,7 +66,7 @@ const BackgroundInfo = () => {
     const formUpdateHandler = async (id) => {
         try {
             const response = await axios.patch(`/backgroundInfo/${id}`, backgroundInfo,
-                {withCredentials: true});
+                {withCredentials: true, credentials: 'include'});
             // console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
@@ -79,7 +79,7 @@ const BackgroundInfo = () => {
     const dataDeleteHandler = async (id) => {
         try {
             const response = await axios.delete(`/backgroundInfo/${id}`,
-                {withCredentials: true});
+                {withCredentials: true, credentials: 'include'});
             // console.log(response.data);
             setRenderState(!renderState);
         } catch (error) {
